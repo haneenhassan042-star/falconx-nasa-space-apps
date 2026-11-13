@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b1c">
+<title>FLAMEWISE — Combustion Research Intelligence</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<canvas id="stars" aria-hidden="true"></canvas><div class="nebula" aria-hidden="true"></div>
+<nav>
+ <a class="brand" href="#home"><span class="brand-mark">✦</span><span>FLAMEWISE</span></a>
+ <button class="menu" id="menuBtn" aria-label="Open navigation">☰</button>
+ <div class="navlinks" id="navlinks">
+  <a href="#mission">Mission</a><a href="#library">Library</a><a href="#explorer">Explorer</a><a href="#compare">Compare</a><a href="#insights">Insights</a><a href="#sources">Sources</a>
+ </div>
+</nav>
+<main id="home">
+<section class="hero">
+ <div>
+  <div class="eyebrow">NASA SPACE APPS 2026 · FLAME IN FREEFALL</div>
+  <h1>Understanding fire<br> beyond <em>Earth.</em></h1>
+  <p>An evidence-first research workspace for discovering, searching, comparing, and interpreting combustion investigations relevant to safer human space exploration.</p>
+  <div class="actions"><a class="btn primary" href="#library">Explore investigations <span>↗</span></a><a class="btn" href="#explorer">Open data workspace</a></div>
+  <div class="hero-meta"><span class="live-dot"></span> RESEARCH WORKSPACE <span class="meta-sep">/</span> SOURCE-AWARE <span class="meta-sep">/</span> DEMO + YOUR DATA</div>
+ </div>
+ <div class="orbit-stage" aria-label="Decorative planet and orbital paths"><div class="orbit"></div><div class="orbit two"></div><div class="planet"></div><div class="moon"></div><div class="planet-caption">FLAMEWISE<br><b>MISSION RESEARCH</b></div></div>
+</section>
+<div class="metrics" id="mission">
+ <div class="metric"><strong id="metricExperiments">31</strong><span>Catalog entries · verify status</span></div>
+ <div class="metric"><strong id="metricRecords">0</strong><span>Imported research records</span></div>
+ <div class="metric"><strong id="metricSources">0</strong><span>Source-linked records</span></div>
+</div>
+
+<section class="content" id="library">
+ <div class="section-head"><div><div class="kicker">01 / Investigation catalogue</div><h2>Research library.</h2></div><p>Search the working catalogue by name, programme, research area, material, or source status. Catalogue entries are not automatically claims of independent flight experiments.</p></div>
+ <div class="workspace">
+  <div class="tools">
+   <input id="librarySearch" type="search" placeholder="Search investigations, acronyms, topics…" aria-label="Search investigations">
+   <select id="familyFilter"><option value="all">All programmes</option><option>ACME</option><option>MDCA</option><option>SoFIE</option><option>Other</option><option>Related research</option></select>
+   <select id="statusFilter"><option value="all">All source statuses</option><option value="official">Direct official page / record</option><option value="catalogue">NASA catalogue lookup</option><option value="verify">Needs verification</option></select>
+  </div>
+  <div class="library-grid" id="libraryGrid"></div>
+  <div class="note"><strong>Catalogue integrity:</strong> Items marked “catalogue lookup” or “needs verification” must be confirmed against an official NASA investigation record or publication before being treated as a separate experiment. Sub-investigations and programme names remain classified as such.</div>
+ </div>
+</section>
+
+<section class="content" id="explorer">
+ <div class="section-head"><div><div class="kicker">02 / Data workspace</div><h2>Research data explorer.</h2></div><p>Import the structured CSV or JSON outputs collected by your research team. Search and filter actual records, then compare and visualize only fields present in the imported data.</p></div>
+ <div class="workspace">
+  <div class="workspace-top"><h3>Dataset manager</h3><span class="status" id="dataStatus">● CATALOGUE ONLY · NO DATA IMPORTED</span></div>
+  <div class="tools">
+   <label class="btn upload">＋ Import CSV<input type="file" id="csvFile" accept=".csv,text/csv"></label>
+   <label class="btn upload">＋ Import JSON<input type="file" id="jsonFile" accept=".json,application/json"></label>
+   <input id="recordSearch" type="search" placeholder="Search imported records…" aria-label="Search imported records">
+   <select id="gravityFilter"><option value="all">All gravity conditions</option></select>
+   <select id="materialFilter"><option value="all">All materials</option></select>
+   <button class="btn" id="exportBtn" type="button">Export filtered CSV</button>
+   <button class="btn" id="clearDataBtn" type="button">Clear imported data</button>
+  </div>
+  <div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"><tr><td class="empty">No research dataset imported yet. Import a CSV or JSON file prepared from verified sources.</td></tr></tbody></table></div>
+  <div class="workspace-foot"><span id="recordCount">0 records</span><span id="dataNotice">Imported files stay in this browser session and are not uploaded to a server.</span></div>
+ </div>
+</section>
+
+<section class="content" id="compare">
+ <div class="section-head"><div><div class="kicker">03 / Side-by-side analysis</div><h2>Experiment comparison.</h2></div><p>Select catalogue entries or imported experiments. The comparison displays only documented fields and clearly marks missing information.</p></div>
+ <div class="workspace">
+  <div class="tools compare-tools"><select id="compareA" aria-label="First experiment"></select><select id="compareB" aria-label="Second experiment"></select><button class="btn primary" id="compareBtn" type="button">Compare selected</button></div>
+  <div id="compareResult" class="compare-result"><div class="empty">Choose two investigations to compare their documented metadata.</div></div>
+ </div>
+</section>
+
+<section class="content" id="ranking">
+ <div class="section-head"><div><div class="kicker">04 / Evidence coverage</div><h2>Research ranking.</h2></div><p>This is a transparent completeness ranking—not a ranking of scientific importance, safety, or experimental quality. Scores are based only on how many key fields have documented values and sources.</p></div>
+ <div class="workspace"><div class="tools"><select id="rankScope"><option value="imported" selected>Imported research records — completeness score</option><option value="catalogue">Catalogue entries — source status only</option></select><span class="status">COMPLETENESS SCORE · NOT SCIENTIFIC MERIT</span></div><div id="rankingList" class="ranking-list"></div></div>
+</section>
+
+<section class="content" id="insights">
+ <div class="section-head"><div><div class="kicker">05 / Evidence interpretation</div><h2>Scientific insights.</h2></div><p>Summaries are generated from available imported records only. The dashboard does not invent findings or infer missing measurements.</p></div>
+ <div class="insight-grid">
+  <article class="panel insight"><h3>Dataset overview</h3><div id="datasetInsights" class="dynamic-insight">Import research records to generate evidence summaries.</div></article>
+  <article class="panel insight"><h3>Evidence gaps</h3><div id="gapInsights" class="dynamic-insight">Missing fields will be identified after importing data.</div></article>
+ </div>
+ <div class="panel chart-panel"><div class="chart-head"><div><div class="kicker">DATA-DRIVEN VISUALIZATION</div><h3>Imported measurements</h3></div><select id="chartField"><option value="auto">Choose numeric field automatically</option></select></div><canvas id="dataChart" height="260"></canvas><div id="chartCaption" class="chart-caption">No numeric measurement data available yet. No placeholder values are plotted.</div></div>
+</section>
+
+<section class="content" id="graph">
+ <div class="section-head"><div><div class="kicker">06 / Research connections</div><h2>Knowledge connections.</h2></div><p>Explore links between experiments and imported materials, gravity conditions, and research themes. Connections are based on shared metadata—not inferred scientific causation.</p></div>
+ <div class="workspace"><div class="tools"><select id="graphMode"><option value="materials">Group by material</option><option value="gravity">Group by gravity condition</option><option value="theme">Group by research theme</option></select></div><div id="knowledgeGraph" class="knowledge-graph"><div class="empty">Import records with material, gravity, or research-theme fields to build the connection view.</div></div></div>
+</section>
+
+<section class="content" id="safety">
+ <div class="section-head"><div><div class="kicker">07 / Mission relevance</div><h2>Fire-safety relevance.</h2></div><p>Connect research to spacecraft fire prevention, detection, and suppression without turning incomplete evidence into operational safety advice.</p></div>
+ <div class="grid3">
+  <article class="panel"><div class="num">01 — PREVENTION</div><h3>Material flammability</h3><p>Organize source-backed information about tested materials, ignition conditions, oxygen concentration, and flame spread.</p><span class="tag">Evidence required</span></article>
+  <article class="panel"><div class="num">02 — DETECTION</div><h3>Smoke & aerosols</h3><p>Track smoke, aerosol, and detection-related measurements while retaining the original measurement context.</p><span class="tag">Evidence required</span></article>
+  <article class="panel"><div class="num">03 — SUPPRESSION</div><h3>Extinction & control</h3><p>Compare documented extinguishment and suppressant studies. Do not generalize across fuels or test configurations without evidence.</p><span class="tag">Evidence required</span></article>
+ </div>
+ <div class="callout"><strong>Safety boundary:</strong> FLAMEWISE is a research and educational dashboard, not a spacecraft operations manual or certified fire-safety system. Any safety implication must be traceable to its original study and limitations.</div>
+</section>
+
+<section class="content" id="assistant">
+ <div class="section-head"><div><div class="kicker">08 / Evidence search</div><h2>Research assistant.</h2></div><p>Search the imported research records and catalogue using natural-language keywords. This offline assistant retrieves matching records; it is not a connected generative-AI model.</p></div>
+ <div class="workspace assistant-box"><div class="tools"><input id="assistantQuestion" type="search" placeholder="Ask: which records mention methane or microgravity?" aria-label="Research question"><button class="btn primary" id="askBtn" type="button">Search evidence</button></div><div id="assistantAnswer" class="assistant-answer">Ask a question to retrieve matching catalogue entries and imported records with their source links.</div></div>
+</section>
+
+<section class="content" id="method">
+ <div class="section-head"><div><div class="kicker">09 / Scientific integrity</div><h2>How to read the evidence.</h2></div><p>Keep direct observations, surrogate experiments, models, and open questions separate.</p></div>
+ <div class="insight-grid">
+  <article class="panel insight"><h3>Measured vs. modeled</h3><p>Never label a simulation or prediction as a direct experimental measurement. Preserve original units, variable names, and test conditions.</p><ul><li>Keep missing values missing.</li><li>Record uncertainty where reported.</li><li>Attach citations to every imported record.</li></ul></article>
+  <article class="panel insight"><h3>Gravity-condition caution</h3><p>Do not label microgravity or normal-gravity results as direct partial-gravity measurements. Identify analogues and model assumptions explicitly.</p><ul><li>Distinguish partial-gravity targets from measured conditions.</li><li>Do not combine unlike experiments without justification.</li><li>Show source limitations.</li></ul></article>
+ </div>
+</section>
+
+<section class="content" id="sources">
+ <div class="section-head"><div><div class="kicker">10 / Provenance</div><h2>Sources & references.</h2></div><p>Official NASA pages and repositories are the starting point. Each imported record should retain its own publication, dataset, or DOI URL.</p></div>
+ <div class="sources" id="sourceGrid">
+  <a class="source" href="https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/" target="_blank" rel="noopener"><strong>Official challenge brief ↗</strong><small>NASA Space Apps 2026 — Flame in Freefall.</small></a>
+  <a class="source" href="https://psi.nasa.gov/physci/repo/search?data_source=psi&data_type=investigation" target="_blank" rel="noopener"><strong>NASA PSI investigations repository ↗</strong><small>Investigation and data records.</small></a>
+  <a class="source" href="https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/" target="_blank" rel="noopener"><strong>NASA PSI by research area ↗</strong><small>NASA investigation categories.</small></a>
+  <a class="source" href="https://gipoc.grc.nasa.gov/wp/payload-portals/" target="_blank" rel="noopener"><strong>NASA GIPOC payload portals ↗</strong><small>Official payload and facility portals.</small></a>
+  <a class="source" href="https://ntrs.nasa.gov/" target="_blank" rel="noopener"><strong>NASA Technical Reports Server ↗</strong><small>NASA technical publications and reports.</small></a>
+  <a class="source" href="https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/combustion-science/" target="_blank" rel="noopener"><strong>NASA Glenn combustion science ↗</strong><small>NASA combustion science overview.</small></a>
+ </div>
+ <div class="note"><strong>Source policy:</strong> The catalogue links are research starting points. Always check the exact experiment identity, publication, DOI, and data provenance before using a value in a scientific conclusion.</div>
+</section>
+</main>
+<footer><div class="brand"><span class="brand-mark">✦</span><span>FLAMEWISE</span></div><div class="disclaimer">Independent participant project for NASA Space Apps Challenge 2026. Not an official NASA website, product, or endorsement. Scientific records must be credited to their original providers.</div><div>© 2026 · Research prototype</div></footer>
+<script src="js/app.js"></script>
+</body></html>
